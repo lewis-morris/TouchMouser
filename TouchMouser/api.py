@@ -37,3 +37,30 @@ class SendType(Resource):
             return make_response(jsonify({"ok": "ok"}), 200)
         except:
             return make_response(jsonify({"error": "pyautogui error "}), 400)
+
+class SendKey(Resource):
+
+    def post(self):
+
+        data = json.loads(request.get_json(force=True))
+        try:
+            pyautogui.press(data["text"])
+            return make_response(jsonify({"ok": "ok"}), 200)
+        except:
+            return make_response(jsonify({"error": "pyautogui error "}), 400)
+
+class SendClick(Resource):
+
+    def post(self):
+
+        data = json.loads(request.get_json(force=True))
+        try:
+            if data["click"] == "left":
+                pyautogui.click()
+            elif data["click"] == "double":
+                pyautogui.doubleClick()
+            elif data["click"] == "right":
+                pyautogui.rightClick()
+            return make_response(jsonify({"ok": "ok"}), 200)
+        except:
+            return make_response(jsonify({"error": "pyautogui error "}), 400)
