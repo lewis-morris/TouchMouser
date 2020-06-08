@@ -38,7 +38,8 @@
     </div>
     <div id="keyboard_extras" data-toggle="collapse" class="row collapse">
         <div class="col text-center">
-            <kbd onclick="keyboard.send_key('enter')">enter</kbd> <kbd onclick="keyboard.send_key('backspace')">backspace</kbd>
+            <kbd id='enter'>enter</kbd>
+            <kbd id="backspace">backspace</kbd>
         </div>
     </div>
 
@@ -55,9 +56,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col text-center">
-                    <kbd onclick="keyboard.send_key('volumedown')">Volume Down</kbd> <kbd
-                        onclick="keyboard.send_key('volumeup')">Volume Up</kbd><kbd
-                        onclick="keyboard.send_key('volumemute')">Mute</kbd>
+                    <kbd id="volumedown">Volume Down</kbd>
+                    <kbd id="volumeup">Volume Up</kbd>
+                    <kbd id="volumemute">Mute</kbd>
                 </div>
             </div>
         </div>
@@ -65,9 +66,9 @@
         <div class="row">
             <div class="small h6">Multimedia</div>
             <div class="text-center">
-                <kbd onclick="keyboard.send_key('playpause')">Play/Pause</kbd> <kbd
-                    onclick="keyboard.send_key('prevtrack')">Previous Track</kbd><kbd
-                    onclick="keyboard.send_key('nexttrack')">Next Track</kbd>
+                <kbd id="playpause">Play/Pause</kbd>
+                <kbd id="prevtrack">Previous Track</kbd>
+                <kbd id="nexttrack">Next Track</kbd>
             </div>
         </div>
         <div class="row">
@@ -407,19 +408,27 @@
 
             data = JSON.stringify({"text": String(this.key_input.value)})
             log.log_start()
-            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, log.log_trans("keyboard",false), null)
+            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, () => log.log_trans("keyboard",false), null)
 
         }
         this.send_key = (key) => {
             data = JSON.stringify({"text": String(key)})
-            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, log.log_trans("keyboard",false), null)
+            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, () => log.log_trans("keyboard",false), null)
         }
+
         this.clear_box = () => {
             this.key_input.value = ""
             log.log_end()
             log.log_trans("keyboard",true)
         }
 
+        // set onclick for all kdb items
+        var pc_keys = document.getElementsByTagName("kbd")
+        for(const itm in pc_keys){
+            pc_keys[itm].onclick = () => {
+                this.send_key(pc_keys[itm].id)
+            }
+        }
         this.key_button.onclick = this.send_text
     }
 
