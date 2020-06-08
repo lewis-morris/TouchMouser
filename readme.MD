@@ -1,7 +1,7 @@
 TouchMouser - Python/ Javascript Remote Control
 ---------------------------------- 
 
-Simple Flask website (for mobile) that controls your computer - powered by RestFul API's and AJAX.
+Simple remote computer controller (for mobile) - powered by Python/Flask/RESTful API's and Javascript/AJAX.
 
 > DISCLAMER - Please beware this has not been tested for security and if you run on an insecure network it is possible you will open your self up to attack. 
 
