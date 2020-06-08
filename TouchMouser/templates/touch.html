@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snackbar.min.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body class="unselectable mr-1 ml-1" style="background-color:#f2f2f2" ontouchmove="showCoords(event,'touch_start')">
+
+
+<div class="h-100 mr-1 ml-1">
+    <div class="row mr-1 ml-1">
+        <div class="col">
+            <div class="form-group text-center">
+                <label class="h5 pt-3" for="usr">Keyboard Input</label>
+                <input type="text" class="form-control" id="keyboard_input" placeholder="Type text here to send">
+            </div>
+        </div>
+    </div>
+    <div class="row mr-1 ml-1 mb-2">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-block">Send to screen</button>
+        </div>
+    </div>
+    <div class="col-md-12 text-center mb-2">
+        <div class="btn-group btn-block" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary">Left Click</button>
+            <button type="button" class="btn btn-secondary">Right Click</button>
+            <button type="button" class="btn btn-primary">Double Click</button>
+        </div>
+    </div>
+
+
+    <div class="pt-2 border rounded" data-toggle="collapse" href="#options">
+        <h6 class="strong text-center h5 w-100">Options</h6>
+    </div>
+    <div id="options" data-toggle="collapse" class="row collapse">
+        <div class="col text-center">
+            <!-- accept mouse -->
+            <div class="form-check m-1">
+                <input class="form-check-input" type="checkbox" checked id="accept_touch">
+                <label class="form-check-label" for="accept_touch">
+                    Accept Mouse Movement
+                </label>
+            </div>
+            <!-- log movement -->
+            <div class="form-check m-1">
+                <input class="form-check-input" type="checkbox" checked id="log_touch">
+                <label class="form-check-label" for="log_touch">
+                    Log Mouse Movement
+                </label>
+            </div>
+            <!--- ms to move -->
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Time Between Mouse Send (ms) </span>
+                </div>
+                <input type="text" class="form-control" id="touch_send_ms" aria-describedby="basic-addon3" value="200">
+            </div>
+            <!--- movement multiplier -->
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Mouse speed multiplier </span>
+                </div>
+                <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3" value="5">
+            </div>
+        </div>
+    </div>
+
+    <div class="pt-2 border rounded" data-toggle="collapse" href="#remote_stats">
+        <h6 class="strong text-center h5 w-100"> Remote Stats</h6>
+    </div>
+    <div id="remote_stats" data-toggle="collapse" class="row collapse">
+        <div class="col">
+            <div id="stats" class="text-center ">
+                <div class="font-weight-bold h7">Remote Screen</div>
+                <div class="text-center">
+                    <span id="remote_x" class="text-secondary">0</span> x <span id="remote_y"
+                                                                                class="text-secondary">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="pt-2 border rounded" data-toggle="collapse" href="#touch_details">
+        <h6 class="strong text-center h5 w-100">Touch Data</h6>
+    </div>
+    <div id="touch_details" class="row collapse" data-toggle="collapse">
+        <div class="col">
+            <div id="touch_start" class="text-center ">
+                <div id="Screen" class="text-center">
+                    <span class="font-weight-bold h7"> Screen: </span>
+                    <div class="text-secondary">
+                        <span class="font-weight-bold"> Current: </span>
+                        x <span id="x">0 </span>
+                        <span>  </span>
+                        y <span id="y">0</span>
+                        <br>
+                    </div>
+                    <div class="text-secondary">
+                        <span class="font-weight-bold"> Difference: </span>
+                        x <span id="x_diff">0 </span>
+                        <span>  </span>
+                        y <span id="y_diff">0</span>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script src="{{ url_for('static', filename='snackbar.min.js') }}"></script>
+<script>
+    function getCookie(name) {
+        var dc = document.cookie;
+        var prefix = name + "=";
+        var begin = dc.indexOf("; " + prefix);
+        if (begin == -1) {
+            begin = dc.indexOf(prefix);
+            if (begin != 0) return null;
+        } else {
+            begin += 2;
+            var end = document.cookie.indexOf(";", begin);
+            if (end == -1) {
+                end = dc.length;
+            }
+        }
+        // because unescape has been deprecated, replaced with decodeURI
+        //return unescape(dc.substring(begin + prefix.length, end));
+        return decodeURI(dc.substring(begin + prefix.length, end));
+    }
+
+    function showCoords(event, id_val) {
+
+        if (event.touches) {
+            var sX = Math.round(event.touches[0].screenX, 2);
+            var sY = Math.round(event.touches[0].screenY, 2);
+        } else {
+            var sX = event.screenX;
+            var sY = event.screenY;
+        }
+
+        // var coords1 = "client - X: " + cX + ", Y coords: " + cY;
+        //var coords2 = "screen - X: " + sX + ", Y coords: " + sY;
+
+
+        // Log and move mouse if needed
+        mouse_send.log_pos(sX, sY)
+        mouse_send.send_mouse()
+
+
+        // if log mouse
+        if (settings.log_touch == true) {
+
+            var x = document.querySelector("#" + id_val + " #Screen #x")
+            var x_diff = document.querySelector("#" + id_val + " #Screen #x_diff")
+            var y = document.querySelector("#" + id_val + " #Screen #y")
+            var y_diff = document.querySelector("#" + id_val + " #Screen #y_diff")
+
+            x_diff.innerText = mouse_send.x_diff
+            x.innerText = mouse_send.x
+            y_diff.innerText = mouse_send.y_diff
+            y.innerText = mouse_send.y
+        }
+
+    }
+
+    window.onload = function (e) {
+        post_ajax_new("/api/getremotescreen", "get", null, null, (data) => {
+            data1 = JSON.parse(data)
+            document.getElementById("remote_x").innerText = data1.x
+            document.getElementById("remote_y").innerText = data1.y
+        }, null, null)
+    }
+
+    function Settings() {
+
+        if (getCookie("log_touch")) {
+            this.log_touch = getCookie("log_touch")
+        } else {
+            this.log_touch = true
+        }
+
+        if (getCookie("accept_touch")) {
+            this.accept_touch = getCookie("accept_touch")
+        } else {
+            this.accept_touch = true
+        }
+
+        if (getCookie("touch_send_ms")) {
+            this.touch_send_ms = getCookie("touch_send_ms")
+        } else {
+            this.touch_send_ms = 100
+        }
+
+        if (getCookie("movement_multiplier")) {
+            this.movement_multiplier = getCookie("movement_multiplier")
+        } else {
+            this.movement_multiplier = 10
+        }
+
+        this.set_settings = () => {
+            document.getElementById("accept_touch").checked = this.accept_touch
+            document.getElementById("log_touch").checked = this.log_touch
+            document.getElementById("touch_send_ms").value = this.touch_send_ms
+            document.getElementById("movement_multiplier").value = this.movement_multiplier
+        }
+
+    }
+    function Keyboard(){
+        this.send_text = () => {
+            var key_type = document.getElementById("keyboard_input")
+            post_ajax_new("/api/sendtype", "post", data, null, null, snack("warning", "Mouse data send error"), null)
+        }
+
+    }
+    function Mouse() {
+
+        this.time_last_send = new Date()
+        this.x = 0
+        this.y = 0
+        this.x_diff = 0
+        this.y_diff = 0
+        this.screen_x = screen.width
+        this.screen_y = screen.height
+
+        this.log_pos = (cur_x, cur_y) => {
+            if (cur_x != this.x) {
+                // if movment too large then finger has been lifted from screen and repositioned
+                // set to zero to restart movement
+                if(Math.abs((cur_x - this.x)) < this.screen_x*0.05){
+                    this.x_diff = cur_x - this.x
+                }else{
+                    this.x_diff=0
+                }
+
+                this.x = cur_x
+            }
+            if (cur_y != this.y) {
+                // if movment too large then finger has been lifted from screen and repositioned
+                // set to zero to restart movement
+                if(Math.abs((cur_y - this.y)) < this.screen_y*0.05){
+                    this.y_diff = cur_y - this.y
+                }else{
+                    this.y_diff=0
+                }
+
+                this.y = cur_y
+            }
+        }
+
+        this.send_mouse = () => {
+            if (this.x != 0 && this.y != 0 && (this.x != this.x_diff && this.y != this.y_diff)) {
+                current_date = new Date()
+                if (document.getElementById("accept_touch").checked == true & (current_date - this.time_last_send) > settings.touch_send_ms) {
+                    this.time_last_send = current_date
+                    data = JSON.stringify({"x": (this.x_diff*-1)*settings.movement_multiplier,
+                                           "y": (this.y_diff*-1)*settings.movement_multiplier})
+
+                    post_ajax_new("/api/sendscreen", "post", data, null, null, snack("warning", "Mouse data send error"), null)
+                }
+            }
+        }
+    }
+
+    mouse_send = new Mouse()
+    settings = new Settings()
+    settings.set_settings()
+
+</script>
+</body>
+
+</html>
