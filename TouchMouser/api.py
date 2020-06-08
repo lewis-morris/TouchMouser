@@ -42,13 +42,14 @@ class SendScreen(Resource):
 class SendType(Resource):
 
     def post(self):
-
         data = json.loads(request.get_json(force=True))
         try:
             pyautogui.write(data["text"])
+
             return make_response(jsonify({"ok": "ok"}), 200)
         except:
             return make_response(jsonify({"error": "pyautogui error "}), 400)
+
 
 class SendKey(Resource):
 
@@ -56,10 +57,33 @@ class SendKey(Resource):
 
         data = json.loads(request.get_json(force=True))
         try:
-            pyautogui.press(data["text"])
+            if pyautogui.isValidKey(data["text"]):
+                pyautogui.press(data["text"])
+            else:
+                if not self.send_multimedia_keys(data["text"]):
+                    raise ValueError("Terminal Error")
+
             return make_response(jsonify({"ok": "ok"}), 200)
         except:
             return make_response(jsonify({"error": "pyautogui error "}), 400)
+
+    @staticmethod
+    def send_multimedia_keys(key):
+        keys = {"mute":"XF86AudioMute",
+                "play":"XF86AudioPlay",
+                "previous":"XF86AudioPrev",
+                "next": "XF86AudioNext",
+                "volumeup":"XF86AudioRaiseVolume",
+                "volumedown":"XF86AudioLowerVolume",
+                "stop":"XF86AudioStop",
+                "sleep":"XF86Sleep"}
+
+        if key in keys.keys():
+            os.system("xdotool key " + keys[key])
+            return True
+        else:
+
+            return False
 
 class SendClick(Resource):
 

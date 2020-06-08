@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,184 +8,215 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snackbar.min.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://kit.fontawesome.com/c551403873.js" crossorigin="anonymous"></script>
 </head>
 
 
-<body class="unselectable mr-1 ml-1" style="background-color:#f2f2f2">
+<body class="unselectable mr-1 ml-1 h-100 bg-light">
 
 
 <div id="touch-surface" class="h-100 mr-1 ml-1">
 
-    <!-- Keyboard send -->
-    <div class="row mr-1 ml-1">
+    <!-- Keyboard ALL -->
+    <div class="row mr-1 ml-1 text-center" data-toggle="collapse" href="#keyboard_all">
         <div class="col">
-            <div class="form-group text-center">
-                <label class="h5 pt-3" for="usr">Keyboard Input</label>
-                <input type="text" class="form-control" id="keyboard_input" placeholder="Type text here to send">
+            <label class="h5 pt-3 text-center">Keyboard Input <i class="fas fa-sort-down"></i></label>
+        </div>
+    </div>
+    <div class="collapse" data-toggle="collapse" id="keyboard_all">
+        <div class="row mr-1 ml-1">
+            <div class="col">
+                <div class="form-group text-center">
+                    <input type="text" class="form-control" id="keyboard_input"
+                           placeholder="Type text here - press enter to send.">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row mr-1 ml-1 mb-2">
-        <div class="col">
-            <button id="keyboard_send" type="button" class="btn btn-primary btn-block">Send to screen</button>
+        <div class="row mr-1 ml-1 mb-2">
+            <div class="col">
+                <button id="keyboard_send" type="button" class="btn btn-primary btn-block">Send to screen</button>
+            </div>
         </div>
-    </div>
 
-    <!-- keyboard extras -->
-    <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#keyboard_extras">
-        <h6 class="text-center text-light h6 w-100">Keyboard Keys</h6>
-    </div>
-    <div id="keyboard_extras" data-toggle="collapse" class="row collapse">
-        <div class="col text-center">
-            <kbd id='enter'>enter</kbd>
-            <kbd id="backspace">backspace</kbd>
+        <!-- keyboard extras -->
+        <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#keyboard_extras">
+            <h6 class="text-center text-light h6 w-100">Keyboard Keys</h6>
         </div>
-    </div>
+        <div id="keyboard_extras" data-toggle="collapse" class="row collapse mb-2">
+            <div class="col text-center">
+                <kbd id='enter'>enter</kbd>
+                <kbd id="backspace">backspace</kbd>
+            </div>
+        </div>
 
-    <!-- functions extras -->
-    <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#function_extras">
-        <h6 class="text-center text-light h6 w-100">Function Keys</h6>
-    </div>
-    <div id="function_extras" data-toggle="collapse" class="row collapse">
-        <div class="row text-center">
+        <!-- functions extras -->
+        <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#function_extras">
+            <h6 class="text-center text-light h6 w-100">Function Keys</h6>
+        </div>
+        <div id="function_extras" data-toggle="collapse" class="row collapse text-center mb-2">
+
             <div class="col-md-12 text-center">
-                <div class="small h6 text-center">Volume</div>
+                <span class="small h4 text-center align-center">
+                    Volume
+                </span>
             </div>
-        </div>
-        <div class="row">
+
             <div class="col-md-12">
-                <div class="col text-center">
+                <div class="text-center">
                     <kbd id="volumedown">Volume Down</kbd>
                     <kbd id="volumeup">Volume Up</kbd>
-                    <kbd id="volumemute">Mute</kbd>
+                    <kbd id="mute">Mute</kbd>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="small h6">Multimedia</div>
-            <div class="text-center">
-                <kbd id="playpause">Play/Pause</kbd>
-                <kbd id="prevtrack">Previous Track</kbd>
-                <kbd id="nexttrack">Next Track</kbd>
+            <div class="col-md-12 text-center">
+                <span class="small h4 text-center align-center">
+                    Multimedia
+                </span>
             </div>
-        </div>
-        <div class="row">
-            <div class="small h6">Computer Functions</div>
-            <div class="col text-center">
-                <kbd onclick="keyboard.send_key('sleep')">Sleep</kbd>
+
+            <div class="col-md-12">
+                <div class="text-center">
+                    <kbd id="play" class="ml-1"> Play </kbd>
+                    <kbd id="stop" class="ml-1"> Pause </kbd>
+                    <kbd id="previous" class="ml-1">Previous Track</kbd>
+                    <kbd id="next" class="ml-1">Next Track</kbd>
+                </div>
             </div>
+
+            <div class="col-md-12 text-center">
+                <span class="small h4 text-center align-center">
+                    Computer Control
+                </span>
+            </div>
+
+            <div class="col-md-12">
+                <div class="text-center">
+                    <kbd id="sleep">Sleep</kbd>
+                </div>
+            </div>
+
         </div>
-
-    </div>
-    <div class="h5 mb-3 text-center">
-        Mouse Input
     </div>
 
-    <!-- Mouse buttons -->
-    <div class="col-md-12 text-center mb-3">
+
+    <!-- MOUSE ALL -->
+    <div class="h5 text-center" data-toggle="collapse" href="#mouse_all"> Mouse Input <i
+            class="fas fa-sort-down"></i></div>
+
+
+    <div class="col-md-12 mb-2 text-center collapse" data-toggle="#mouse_all" id="mouse_all">
         <div class="btn-group btn-block" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('left')">Left Click</button>
-            <button type="button" class="btn btn-secondary" onclick="mouse.click_mouse('right')">Right Click</button>
-            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('double')">Double Click</button>
-        </div>
-    </div>
-
-    <div class="h5 mb-2 text-center">
-        Extras
-    </div>
-
-    <!-- Options -->
-    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#options">
-        <h6 class="text-center text-light h6 w-100">Options</h6>
-    </div>
-    <div id="options" data-toggle="collapse" class="row collapse">
-        <div class="col text-center">
-            <!-- accept mouse -->
-            <div class="form-check m-1">
-                <input class="form-check-input" type="checkbox" checked id="accept_touch">
-                <label class="form-check-label" for="accept_touch">
-                    Accept Mouse Movement
-                </label>
-            </div>
-            <!-- log movement -->
-            <div class="form-check m-1">
-                <input class="form-check-input" type="checkbox" checked id="log_touch">
-                <label class="form-check-label" for="log_touch">
-                    Log Mouse Movement
-                </label>
-            </div>
-            <!--- ms to move -->
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">Time Between Mouse Send (ms) </span>
-                </div>
-                <input type="text" class="form-control" id="touch_send_ms" aria-describedby="basic-addon3" value="200">
-            </div>
-            <!--- movement multiplier -->
-            <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon3">Mouse speed multiplier </span>
-                </div>
-                <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3"
-                       value="5">
-            </div>
-            <button type="button" class="btn btn-primary mb-2" onclick="settings.set_defaults()">Reset All Options
+            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('right')">Right Click
+            </button>
+            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('double')">Double Click
             </button>
         </div>
     </div>
-    <!-- Remote Stats -->
-    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#remote_stats">
-        <h6 class="text-center text-light h6 w-100"> Remote Options</h6>
+
+    <!-- OPTIONS ALL -->
+    <div class="h5 mb-2 text-center" data-toggle="collapse" href="#options_all">
+        Extras <i class="fas fa-sort-down"></i>
     </div>
-    <div id="remote_stats" data-toggle="collapse" class="row collapse">
-        <div class="col">
-            <div id="stats" class="text-center ">
-                <div class="font-weight-bold h7">Remote Screen</div>
-                <div class="text-center">
-                    <span id="remote_x" class="text-secondary">0</span> x <span id="remote_y"
-                                                                                class="text-secondary">0</span>
+
+    <div class="col-md-12 text-center collapse" data-toggle="#options_all" id="options_all">
+        <!-- Options -->
+        <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#options">
+            <h6 class="text-center text-light h6 w-100">Options</h6>
+        </div>
+        <div id="options" data-toggle="collapse" class="row collapse">
+            <div class="col text-center">
+                <!-- accept mouse -->
+                <div class="form-check m-1">
+                    <input class="form-check-input" type="checkbox" checked id="accept_touch">
+                    <label class="form-check-label" for="accept_touch">
+                        Accept Mouse Movement
+                    </label>
                 </div>
-                <button class="btn btn-primary btn-block mb-2" onclick="show_screenshot(this)">Show screen</button>
+                <!-- log movement -->
+                <div class="form-check m-1">
+                    <input class="form-check-input" type="checkbox" checked id="log_touch">
+                    <label class="form-check-label" for="log_touch">
+                        Log Mouse Movement
+                    </label>
+                </div>
+                <!--- ms to move -->
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Time Between Mouse Send (ms) </span>
+                    </div>
+                    <input type="text" class="form-control" id="touch_send_ms" aria-describedby="basic-addon3"
+                           value="200">
+                </div>
+                <!--- movement multiplier -->
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon3">Mouse speed multiplier </span>
+                    </div>
+                    <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3"
+                           value="5">
+                </div>
+                <button type="button" class="btn btn-primary mb-2" onclick="settings.set_defaults()">Reset All
+                    Options
+                </button>
             </div>
         </div>
-    </div>
-    <!-- Touch Details -->
-    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#touch_details">
-        <h6 class="text-center text-light h6 w-100">Info</h6>
-    </div>
-    <div id="touch_details" class="row collapse" data-toggle="collapse">
-        <div class="col">
-            <div id="touch_start" class="text-center ">
-                <div id="Screen" class="text-center">
-                    <span class="font-weight-bold h7"> Screen: </span>
-                    <div class="text-secondary">
-                        <span class="font-weight-bold"> Current: </span>
-                        x <span id="x">0 </span>
-                        <span>  </span>
-                        y <span id="y">0</span>
+        <!-- Remote Stats -->
+        <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#remote_stats">
+            <h6 class="text-center text-light h6 w-100"> Remote Options</h6>
+        </div>
+        <div id="remote_stats" data-toggle="collapse" class="row collapse">
+            <div class="col">
+                <div id="stats" class="text-center ">
+                    <div class="font-weight-bold h7">Remote Screen</div>
+                    <div class="text-center">
+                        <span id="remote_x" class="text-secondary">0</span> x <span id="remote_y"
+                                                                                    class="text-secondary">0</span>
+                    </div>
+                    <button class="btn btn-primary btn-block mb-2" onclick="show_screenshot(this)">Show screen
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Touch Details -->
+        <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#touch_details">
+            <h6 class="text-center text-light h6 w-100">Info</h6>
+        </div>
+        <div id="touch_details" class="row collapse" data-toggle="collapse">
+            <div class="col">
+                <div id="touch_start" class="text-center ">
+                    <div id="Screen" class="text-center">
+                        <span class="font-weight-bold h7"> Screen: </span>
+                        <div class="text-secondary">
+                            <span class="font-weight-bold"> Current: </span>
+                            x <span id="x">0 </span>
+                            <span>  </span>
+                            y <span id="y">0</span>
 
-                        <span class="font-weight-bold">   Difference: </span>
-                        x <span id="x_diff">0 </span>
-                        <span>  </span>
-                        y <span id="y_diff">0</span>
-                        <br>
+                            <span class="font-weight-bold">   Difference: </span>
+                            x <span id="x_diff">0 </span>
+                            <span>  </span>
+                            y <span id="y_diff">0</span>
+                            <br>
+                        </div>
                     </div>
-                </div>
-                <div id="mouse_speed" class="text-center">
-                    <span class="font-weight-bold h7"> Speed: </span>
-                    <div class="text-secondary">
-                        <span class="font-weight-bold"> Mouse response speed: </span>
-                         <span id="transfer_speed">0</span> (ms)
+                    <div id="mouse_speed" class="text-center">
+                        <span class="font-weight-bold h7"> Speed: </span>
+                        <div class="text-secondary">
+                            <span class="font-weight-bold"> Mouse response speed: </span>
+                            <span id="transfer_speed">0</span> (ms)
+                        </div>
                     </div>
-                </div>
-                <div id="transactions" class="text-center">
-                    <span class="font-weight-bold h7"> Transactions: </span>
-                    <div class="text-secondary">
-                        Mouse Complete: <span id="mouse_complete">0</span> Mouse error: <span id="mouse_error">0</span>
-                        <br>
-                        Keyboard Complete: <span id="keyboard_complete">0</span> Keyboard error: <span id="keyboard_error">0</span>
+                    <div id="transactions" class="text-center">
+                        <span class="font-weight-bold h7"> Transactions: </span>
+                        <div class="text-secondary">
+                            Mouse Complete: <span id="mouse_complete">0</span> Mouse error: <span
+                                id="mouse_error">0</span>
+                            <br>
+                            Keyboard Complete: <span id="keyboard_complete">0</span> Keyboard error: <span
+                                id="keyboard_error">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -194,20 +225,21 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Screenshot</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img class="image-fluid" src="" id="screenshot">
-      </div>
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Screenshot</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img class="image-fluid w-100" src="" id="screenshot">
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -215,7 +247,9 @@
         crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='functions.js') }}"></script>
 <script src="{{ url_for('static', filename='snackbar.min.js') }}"></script>
+
 <script>
+
 
     var show_screenshot = (ele) => {
         post_ajax_new('/api/getscreen',
@@ -285,18 +319,18 @@
         this.key_trans = 0
         this.key_errors = 0
 
-        this.log_trans = (typ,complete_type) => {
-            if(typ == "mouse" & complete_type == true){
-                this.mouse_trans = this.mouse_trans +1
+        this.log_trans = (typ, complete_type) => {
+            if (typ == "mouse" & complete_type == true) {
+                this.mouse_trans = this.mouse_trans + 1
                 document.getElementById("mouse_complete").innerText = this.mouse_trans
-            }else if(typ == "mouse" & complete_type == false){
-                this.mouse_errors = this.mouse_errors +1
+            } else if (typ == "mouse" & complete_type == false) {
+                this.mouse_errors = this.mouse_errors + 1
                 document.getElementById("mouse_error").innerText = this.mouse_errors
-            }else if(typ == "keyboard" & complete_type == true){
-                this.key_trans = this.key_trans +1
+            } else if (typ == "keyboard" & complete_type == true) {
+                this.key_trans = this.key_trans + 1
                 document.getElementById("keyboard_complete").innerText = this.key_trans
-            }else if(typ == "keyboard" & complete_type == false){
-                this.key_errors = this.key_errors +1
+            } else if (typ == "keyboard" & complete_type == false) {
+                this.key_errors = this.key_errors + 1
                 document.getElementById("keyboard_error").innerText = this.key_errors
             }
 
@@ -307,7 +341,7 @@
         this.log_end = () => {
             let dte = new Date()
             let time_taken = dte - this.time_start
-            if(this.keymouse_speed.length > 20) {
+            if (this.keymouse_speed.length > 20) {
                 this.keymouse_speed.shift()
             }
             this.keymouse_speed.push(time_taken)
@@ -316,10 +350,11 @@
         this.get_keymouse_speed = () => {
             let sum = this.keymouse_speed.reduce((previous, current) => current += previous)
 
-            document.getElementById("transfer_speed").innerText = Math.round(sum / this.keymouse_speed.length,2)
+            document.getElementById("transfer_speed").innerText = Math.round(sum / this.keymouse_speed.length, 2)
         }
 
     }
+
     function Settings() {
 
         this.set_settings = () => {
@@ -408,28 +443,29 @@
 
             data = JSON.stringify({"text": String(this.key_input.value)})
             log.log_start()
-            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, () => log.log_trans("keyboard",false), null)
+            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, () => log.log_trans("keyboard", false), null)
 
         }
         this.send_key = (key) => {
             data = JSON.stringify({"text": String(key)})
-            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, () => log.log_trans("keyboard",false), null)
+            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, () => log.log_trans("keyboard", false), null)
         }
 
         this.clear_box = () => {
             this.key_input.value = ""
             log.log_end()
-            log.log_trans("keyboard",true)
+            log.log_trans("keyboard", true)
         }
 
         // set onclick for all kdb items
         var pc_keys = document.getElementsByTagName("kbd")
-        for(const itm in pc_keys){
+        for (const itm in pc_keys) {
             pc_keys[itm].onclick = () => {
                 this.send_key(pc_keys[itm].id)
             }
         }
         this.key_button.onclick = this.send_text
+        this.key_input.onkeypress = this.send_text
     }
 
     function Mouse() {
@@ -464,11 +500,11 @@
                     post_ajax_new("/api/sendscreen", "post", data, null, () => {
                         this.ok_to_send = true
                         log.log_end()
-                        log.log_trans("mouse",true)
+                        log.log_trans("mouse", true)
                     }, () => {
                         this.ok_to_send = true
                         log.log_end()
-                        log.log_trans("mouse",false)
+                        log.log_trans("mouse", false)
                     }, null)
                 }
             }
