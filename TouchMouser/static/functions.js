@@ -406,7 +406,7 @@ function post_ajax_new(url, con_type, data, token, complete_func, error_func, pr
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.readyState)
+            //console.log(this.readyState)
             //console.log("ALL OK")
             //console.log(this.responseText)
             //return this.responseText
@@ -414,12 +414,12 @@ function post_ajax_new(url, con_type, data, token, complete_func, error_func, pr
             if (complete_func) {
                 complete_func(this.responseText)
             }
-        } else if (this.readyState == 4) {
+        } else if (this.readyState == 4 && this.status == 400) {
             if (error_func) {
                 error_func(this.responseText)
             }
         } else {
-            console.log(this.readyState)
+            //console.log(this.readyState)
             //console.log(this.status)
             //console.log(this.statusText)
             //return this.responseText
@@ -442,17 +442,17 @@ function post_ajax_new(url, con_type, data, token, complete_func, error_func, pr
             };
     }
 
-    console.log("open")
+    //console.log("open")
     xhttp.open(con_type, url, true)
-    console.log("set request")
+    //console.log("set request")
 
     xhttp.setRequestHeader("Content-type", "application/json")
     if (token) {
         xhttp.setRequestHeader("Authorization", "Bearer " + token)
     }
-    console.log("send")
+    //console.log("send")
     xhttp.send(JSON.stringify(data))
-    console.log("done")
+    //console.log("done")
 
 }
 

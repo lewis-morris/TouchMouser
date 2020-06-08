@@ -9,14 +9,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
 </head>
 
 
-<body class="unselectable mr-1 ml-1" style="background-color:#f2f2f2" ontouchmove="showCoords(event,'touch_start')">
+<body class="unselectable mr-1 ml-1" style="background-color:#f2f2f2">
 
 
-<div class="h-100 mr-1 ml-1">
+<div id="touch-surface" class="h-100 mr-1 ml-1">
 
     <!-- Keyboard send -->
     <div class="row mr-1 ml-1">
@@ -34,8 +33,8 @@
     </div>
 
     <!-- keyboard extras -->
-    <div class="pt-2 border rounded mb-1" data-toggle="collapse" href="#keyboard_extras">
-        <h6 class="small text-center h5 w-100">Send Keyboard Keys</h6>
+    <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#keyboard_extras">
+        <h6 class="text-center text-light h6 w-100">Keyboard Keys</h6>
     </div>
     <div id="keyboard_extras" data-toggle="collapse" class="row collapse">
         <div class="col text-center">
@@ -43,7 +42,43 @@
         </div>
     </div>
 
-    <div class="h5 pt-3 mb-3 text-center">
+    <!-- functions extras -->
+    <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#function_extras">
+        <h6 class="text-center text-light h6 w-100">Function Keys</h6>
+    </div>
+    <div id="function_extras" data-toggle="collapse" class="row collapse">
+        <div class="row text-center">
+            <div class="col-md-12 text-center">
+                <div class="small h6 text-center">Volume</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col text-center">
+                    <kbd onclick="keyboard.send_key('volumedown')">Volume Down</kbd> <kbd
+                        onclick="keyboard.send_key('volumeup')">Volume Up</kbd><kbd
+                        onclick="keyboard.send_key('volumemute')">Mute</kbd>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small h6">Multimedia</div>
+            <div class="text-center">
+                <kbd onclick="keyboard.send_key('playpause')">Play/Pause</kbd> <kbd
+                    onclick="keyboard.send_key('prevtrack')">Previous Track</kbd><kbd
+                    onclick="keyboard.send_key('nexttrack')">Next Track</kbd>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small h6">Computer Functions</div>
+            <div class="col text-center">
+                <kbd onclick="keyboard.send_key('sleep')">Sleep</kbd>
+            </div>
+        </div>
+
+    </div>
+    <div class="h5 mb-3 text-center">
         Mouse Input
     </div>
 
@@ -56,13 +91,13 @@
         </div>
     </div>
 
-    <div class="h5 pt-3 mb-2 text-center">
+    <div class="h5 mb-2 text-center">
         Extras
     </div>
 
     <!-- Options -->
-    <div class="pt-2 border rounded" data-toggle="collapse" href="#options">
-        <h6 class="small text-center h5 w-100">Options</h6>
+    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#options">
+        <h6 class="text-center text-light h6 w-100">Options</h6>
     </div>
     <div id="options" data-toggle="collapse" class="row collapse">
         <div class="col text-center">
@@ -95,12 +130,13 @@
                 <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3"
                        value="5">
             </div>
-            <button type="button" class="btn btn-primary" onclick="settings.set_defaults()">Reset Options</button>
+            <button type="button" class="btn btn-primary mb-2" onclick="settings.set_defaults()">Reset All Options
+            </button>
         </div>
     </div>
     <!-- Remote Stats -->
-    <div class="pt-2 border rounded" data-toggle="collapse" href="#remote_stats">
-        <h6 class="small text-center h5 w-100"> Remote Stats</h6>
+    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#remote_stats">
+        <h6 class="text-center text-light h6 w-100"> Remote Options</h6>
     </div>
     <div id="remote_stats" data-toggle="collapse" class="row collapse">
         <div class="col">
@@ -110,12 +146,13 @@
                     <span id="remote_x" class="text-secondary">0</span> x <span id="remote_y"
                                                                                 class="text-secondary">0</span>
                 </div>
+                <button class="btn btn-primary btn-block mb-2" onclick="show_screenshot(this)">Show screen</button>
             </div>
         </div>
     </div>
     <!-- Touch Details -->
-    <div class="pt-2 border rounded" data-toggle="collapse" href="#touch_details">
-        <h6 class="small text-center h5 w-100">Touch Data</h6>
+    <div class="pt-2 border rounded bg-secondary" data-toggle="collapse" href="#touch_details">
+        <h6 class="text-center text-light h6 w-100">Info</h6>
     </div>
     <div id="touch_details" class="row collapse" data-toggle="collapse">
         <div class="col">
@@ -127,20 +164,49 @@
                         x <span id="x">0 </span>
                         <span>  </span>
                         y <span id="y">0</span>
-                        <br>
-                    </div>
-                    <div class="text-secondary">
-                        <span class="font-weight-bold"> Difference: </span>
+
+                        <span class="font-weight-bold">   Difference: </span>
                         x <span id="x_diff">0 </span>
                         <span>  </span>
                         y <span id="y_diff">0</span>
                         <br>
                     </div>
                 </div>
+                <div id="mouse_speed" class="text-center">
+                    <span class="font-weight-bold h7"> Speed: </span>
+                    <div class="text-secondary">
+                        <span class="font-weight-bold"> Mouse response speed: </span>
+                         <span id="transfer_speed">0</span> (ms)
+                    </div>
+                </div>
+                <div id="transactions" class="text-center">
+                    <span class="font-weight-bold h7"> Transactions: </span>
+                    <div class="text-secondary">
+                        Mouse Complete: <span id="mouse_complete">0</span> Mouse error: <span id="mouse_error">0</span>
+                        <br>
+                        Keyboard Complete: <span id="keyboard_complete">0</span> Keyboard error: <span id="keyboard_error">0</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Screenshot</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class="image-fluid" src="" id="screenshot">
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -149,16 +215,30 @@
 <script src="{{ url_for('static', filename='functions.js') }}"></script>
 <script src="{{ url_for('static', filename='snackbar.min.js') }}"></script>
 <script>
-     function getCookie(n) {
+
+    var show_screenshot = (ele) => {
+        post_ajax_new('/api/getscreen',
+            'get',
+            null,
+            null,
+            (data) => {
+                data = JSON.parse(data)
+                $('#screenshot').attr("src", data['image']);
+                $('#imageModal').modal('show')
+            },
+            null, null)
+    }
+
+    function getCookie(n) {
         let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
         return a ? a[1] : '';
     }
 
-    function showCoords(event, id_val) {
+    function update_mouse(event, id_val) {
 
         if (event.touches) {
-            var sX = Math.round(event.touches[0].screenX, 2);
-            var sY = Math.round(event.touches[0].screenY, 2);
+            var sX = event.touches[0].screenX;
+            var sY = event.touches[0].screenY;
         } else {
             var sX = event.screenX;
             var sY = event.screenY;
@@ -181,10 +261,10 @@
             var y = document.querySelector("#" + id_val + " #Screen #y")
             var y_diff = document.querySelector("#" + id_val + " #Screen #y_diff")
 
-            x_diff.innerText = mouse.x_diff
-            x.innerText = mouse.x
-            y_diff.innerText = mouse.y_diff
-            y.innerText = mouse.y
+            x_diff.innerText = Math.round(mouse.x_diff, 2)
+            x.innerText = Math.round(mouse.x, 2)
+            y_diff.innerText = Math.round(mouse.y_diff, 2)
+            y.innerText = Math.round(mouse.y, 2)
         }
 
     }
@@ -197,6 +277,48 @@
         }, null, null)
     }
 
+    function Log() {
+        this.keymouse_speed = []
+        this.mouse_trans = 0
+        this.mouse_errors = 0
+        this.key_trans = 0
+        this.key_errors = 0
+
+        this.log_trans = (typ,complete_type) => {
+            if(typ == "mouse" & complete_type == true){
+                this.mouse_trans = this.mouse_trans +1
+                document.getElementById("mouse_complete").innerText = this.mouse_trans
+            }else if(typ == "mouse" & complete_type == false){
+                this.mouse_errors = this.mouse_errors +1
+                document.getElementById("mouse_error").innerText = this.mouse_errors
+            }else if(typ == "keyboard" & complete_type == true){
+                this.key_trans = this.key_trans +1
+                document.getElementById("keyboard_complete").innerText = this.key_trans
+            }else if(typ == "keyboard" & complete_type == false){
+                this.key_errors = this.key_errors +1
+                document.getElementById("keyboard_error").innerText = this.key_errors
+            }
+
+        }
+        this.log_start = () => {
+            this.time_start = new Date()
+        }
+        this.log_end = () => {
+            let dte = new Date()
+            let time_taken = dte - this.time_start
+            if(this.keymouse_speed.length > 20) {
+                this.keymouse_speed.shift()
+            }
+            this.keymouse_speed.push(time_taken)
+            this.get_keymouse_speed()
+        }
+        this.get_keymouse_speed = () => {
+            let sum = this.keymouse_speed.reduce((previous, current) => current += previous)
+
+            document.getElementById("transfer_speed").innerText = Math.round(sum / this.keymouse_speed.length,2)
+        }
+
+    }
     function Settings() {
 
         this.set_settings = () => {
@@ -226,6 +348,7 @@
         this.log_touch_ele = document.getElementById("log_touch")
         this.log_touch_ele.onchange = () => {
             this.change_setting(this.log_touch_ele)
+            this.log_touch = this.log_touch_ele.checked
         }
         if (getCookie("log_touch")) {
             this.log_touch = getCookie("log_touch")
@@ -235,14 +358,14 @@
         }
 
 
-
         this.accept_touch_ele = document.getElementById("accept_touch")
         this.accept_touch_ele.onchange = () => {
             this.change_setting(this.accept_touch_ele)
+            this.accept_touch = this.accept_touch_ele.checked
         }
         if (getCookie("accept_touch")) {
             this.accept_touch = getCookie("accept_touch")
-            this.accept_touch_ele = this.accept_touch == "true"
+            this.accept_touch_ele.checked = this.accept_touch == "true"
         } else {
             this.accept_touch = true
         }
@@ -251,45 +374,50 @@
         this.touch_send_ms_ele = document.getElementById("touch_send_ms")
         this.touch_send_ms_ele.onchange = () => {
             this.change_setting(this.touch_send_ms_ele)
+            this.touch_send_ms = this.touch_send_ms_ele.value
         }
         if (getCookie("touch_send_ms")) {
             this.touch_send_ms = getCookie("touch_send_ms")
-            this.touch_send_ms_ele = this.touch_send_ms
+            this.touch_send_ms_ele.value = this.touch_send_ms
         } else {
             this.touch_send_ms = 60
         }
 
 
-
         this.movement_multiplier_ele = document.getElementById("movement_multiplier")
         this.movement_multiplier_ele.onchange = () => {
             this.change_setting(this.movement_multiplier_ele)
+            this.movement_multiplier = this.movement_multiplier_ele.value
         }
         if (getCookie("movement_multiplier")) {
             this.movement_multiplier = getCookie("movement_multiplier")
-            this.movement_multiplier_ele = this.movement_multiplier
+            this.movement_multiplier_ele.value = this.movement_multiplier
         } else {
             this.movement_multiplier = 15
         }
 
-
-
     }
+
 
     function Keyboard() {
         this.key_input = document.getElementById("keyboard_input")
         this.key_button = document.getElementById("keyboard_send")
 
         this.send_text = () => {
+
             data = JSON.stringify({"text": String(this.key_input.value)})
-            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, snack("warning", "Keyboard send error"), null)
+            log.log_start()
+            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, log.log_trans("keyboard",false), null)
+
         }
         this.send_key = (key) => {
             data = JSON.stringify({"text": String(key)})
-            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, snack("warning", "Keyboard send error"), null)
+            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, log.log_trans("keyboard",false), null)
         }
         this.clear_box = () => {
             this.key_input.value = ""
+            log.log_end()
+            log.log_trans("keyboard",true)
         }
 
         this.key_button.onclick = this.send_text
@@ -306,48 +434,54 @@
         this.screen_y = screen.height
 
         this.log_pos = (cur_x, cur_y) => {
-            if (cur_x != this.x) {
-                // if movment too large then finger has been lifted from screen and repositioned
-                // set to zero to restart movement
-                if (Math.abs((cur_x - this.x)) < this.screen_x * 0.05) {
-                    this.x_diff = cur_x - this.x
-                } else {
-                    this.x_diff = 0
-                }
-
-                this.x = cur_x
-            }
-            if (cur_y != this.y) {
-                // if movment too large then finger has been lifted from screen and repositioned
-                // set to zero to restart movement
-                if (Math.abs((cur_y - this.y)) < this.screen_y * 0.025) {
-                    this.y_diff = cur_y - this.y
-                } else {
-                    this.y_diff = 0
-                }
-
-                this.y = cur_y
-            }
+            this.x_diff = cur_x - this.x
+            this.x = cur_x
+            this.y_diff = cur_y - this.y
+            this.y = cur_y
         }
 
+
         this.send_mouse_move = () => {
-            if (this.x != 0 && this.y != 0 && (this.x != this.x_diff && this.y != this.y_diff)) {
+            if (this.x != this.x_diff && this.y != this.y_diff && this.ok_to_send == true) {
                 current_date = new Date()
                 if (document.getElementById("accept_touch").checked == true & (current_date - this.time_last_send) > settings.touch_send_ms) {
+                    log.log_start()
                     this.time_last_send = current_date
                     data = JSON.stringify({
                         "x": (this.x_diff * -1) * settings.movement_multiplier,
                         "y": (this.y_diff * -1) * settings.movement_multiplier
                     })
-
-                    post_ajax_new("/api/sendscreen", "post", data, null, null, snack("warning", "Mouse data send error"), null)
+                    this.ok_to_send = false
+                    post_ajax_new("/api/sendscreen", "post", data, null, () => {
+                        this.ok_to_send = true
+                        log.log_end()
+                        log.log_trans("mouse",true)
+                    }, () => {
+                        this.ok_to_send = true
+                        log.log_end()
+                        log.log_trans("mouse",false)
+                    }, null)
                 }
             }
         }
+        this.ok_to_send = true
 
         this.click_mouse = (type) => {
             data = JSON.stringify({"click": type})
-            post_ajax_new("/api/sendclick", "post", data, null, null, snack("warning", "Mouse data send error"), null)
+            post_ajax_new("/api/sendclick", "post", data, null, null, null, null)
+        }
+
+        this.reset_mouse = () => {
+            this.x = 0
+            this.y = 0
+            this.x_diff = 0
+            this.y_diff = 0
+        }
+        document.getElementsByTagName("body")[0].ontouchmove = (e) => {
+            update_mouse(e, 'touch_start')
+        }
+        document.getElementsByTagName("body")[0].ontouchend = (e) => {
+            this.reset_mouse()
         }
     }
 
@@ -355,6 +489,7 @@
     mouse = new Mouse()
     settings = new Settings()
     settings.set_settings()
+    log = new Log()
 
 </script>
 </body>

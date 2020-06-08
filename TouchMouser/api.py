@@ -7,12 +7,24 @@ from flask import jsonify
 from TouchMouser import g
 parser = reqparse.RequestParser()
 import pyautogui
+import pyscreenshot as ImageGrab
+import base64
+from io import BytesIO
+
 
 class GetRemoteScreen(Resource):
 
     def get(self):
         screensize = pyautogui.size()
         return make_response(jsonify({"x": screensize[0], "y": screensize[1]}), 200)
+
+class GetScreen(Resource):
+    def get(self):
+        screen = ImageGrab.grab()
+        buffered = BytesIO()
+        screen.save(buffered, format="JPEG")
+        img_str = base64.b64encode(buffered.getvalue())
+        return make_response(jsonify({"image": "data:image/jpeg;base64, " + img_str.decode()}), 200)
 
 
 class SendScreen(Resource):

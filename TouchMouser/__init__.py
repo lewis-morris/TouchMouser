@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 from flask import g,current_app
 
-from TouchMouser.api import SendScreen, GetRemoteScreen, SendType, SendClick, SendKey
+from TouchMouser.api import SendScreen, GetRemoteScreen, SendType, SendClick, SendKey, GetScreen
 from TouchMouser.config import AppConfig
 from TouchMouser.main.routes import main
 
@@ -25,6 +25,7 @@ def create_app(config_class =[AppConfig]):
     api.add_resource(SendType, "/api/sendtype")
     api.add_resource(SendKey, "/api/sendkey")
     api.add_resource(SendClick, "/api/sendclick")
+    api.add_resource(GetScreen, "/api/getscreen")
 
     api.init_app(app)
     app.register_blueprint(main)
