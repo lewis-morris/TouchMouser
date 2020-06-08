@@ -15,6 +15,10 @@ On the host PC
     python run.py
 ```
 
+![Example Setup](./examples/setup.png "Example Setup")
+
+
+
 To Control the computer, open a browser directed to the ip address of the computer port 5000
 
 i.e 
