@@ -1,0 +1,3 @@
+Flask~=1.1.2
+PyAutoGUI~=0.9.50
+pyscreenshot~=2.2
