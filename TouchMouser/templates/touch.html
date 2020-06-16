@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snackbar.min.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -14,13 +15,18 @@
 
 <body class="unselectable mr-1 ml-1 h-100 bg-light">
 
+<div class="container mx-2 my-2">
+    <div class="text-center h4 py-3 mr-3 bg-info text-white border">TouchMouser v0.1</div>
+</div>
 
 <div id="touch-surface" class="h-100 mr-1 ml-1">
+
 
     <!-- Keyboard ALL -->
     <div class="row mr-1 ml-1 text-center" data-toggle="collapse" href="#keyboard_all">
         <div class="col">
-            <label class="h5 pt-3 text-center">Keyboard Input <i class="fas fa-sort-down"></i></label>
+            <label class="h5 py-2 text-center w-100 inline-block align-middle">Keyboard Input <i
+                    class="fas fa-sort-down"></i></label>
         </div>
     </div>
     <div class="collapse" data-toggle="collapse" id="keyboard_all">
@@ -28,7 +34,7 @@
             <div class="col">
                 <div class="form-group text-center">
                     <input type="text" class="form-control" id="keyboard_input"
-                           placeholder="Type text here - press enter to send.">
+                           placeholder="Type text here click below to send.">
                 </div>
             </div>
         </div>
@@ -43,11 +49,46 @@
             <h6 class="text-center text-light h6 w-100">Keyboard Keys</h6>
         </div>
         <div id="keyboard_extras" data-toggle="collapse" class="row collapse mb-2">
-            <div class="col text-center">
-                <kbd id='enter'>enter</kbd>
-                <kbd id="backspace">backspace</kbd>
+            <div class="container">
+
+                <div class="contianer py-2">
+                    <div class="col-xs-12 text-center">
+                        <kbd id='enter'>enter</kbd>
+                        <kbd id="backspace">backspace</kbd>
+                        <kbd id="space">space</kbd>
+                    </div>
+                </div>
+                <div class="contianer py-2">
+                    <div class="col-xs-12 text-center h3">
+                        <div class="col text-center">
+                            <kbd id='up'>up</kbd>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-xs-12 text-center h3">
+                            <kbd id='left'>left</kbd>
+                            <kbd id="down">down</kbd>
+                            <kbd id="right">right</kbd>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="col-xs-12 text-center h3 pt-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button id="send_key_code_button" class="btn btn-primary" type="button">Send
+                                    </button>
+                                </div>
+                                <input id="send_key_code_input" type="text" class="form-control"
+                                       placeholder="Enter key code to send i.e f1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
 
         <!-- functions extras -->
         <div class="pt-2 border rounded mb-1 bg-secondary" data-toggle="collapse" href="#function_extras">
@@ -101,22 +142,157 @@
 
 
     <!-- MOUSE ALL -->
-    <div class="h5 text-center" data-toggle="collapse" href="#mouse_all"> Mouse Input <i
-            class="fas fa-sort-down"></i></div>
+    <div class="h5 py-2 text-center w-100 inline-block align-middle" data-toggle="collapse" href="#mouse_all"> Mouse
+        Input <i
+                class="fas fa-sort-down"></i></div>
 
 
-    <div class="col-md-12 mb-2 text-center collapse" data-toggle="#mouse_all" id="mouse_all">
-        <div class="btn-group btn-block" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('left')">Left Click</button>
-            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('right')">Right Click
-            </button>
-            <button type="button" class="btn btn-primary" onclick="mouse.click_mouse('double')">Double Click
-            </button>
+    <!-- Applications ALL -->
+    <!-- Applications ALL -->
+    <!-- Applications ALL -->
+
+    <div class="container">
+
+        <div class="row mr-1 ml-1 text-center" data-toggle="collapse" href="#applications_all">
+            <div class="col">
+                <label class="h5 py-2 text-center w-100 inline-block align-middle">Applications <i
+                        class="fas fa-sort-down"></i></label>
+            </div>
+        </div>
+
+        <div class="collapse" data-toggle="collapse" id="applications_all">
+
+            <div class="row my-2" id="app_loading">
+                <div class="col-xs-12 w-100 text-center align-middle">
+                    <div class="spinner-border spinner-border-sm pt-0 pb-0" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    Loading
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="container text-center">
+                    <button id="app_refresh_button" class="btn btn btn-primary pt-0 pb-0">Refresh Status</button>
+                    <button id="app_all_running_button" class="btn btn btn-primary pt-0 pb-0">Show Running</button>
+
+                </div>
+            </div>
+
+            <div class="row border" id="application_search_section">
+
+                <form class="form-inline my-2">
+                    <div class="col-sm-6 text-center">
+                        <!-- Small -->
+                        <select id="app_dropdown" name="cars" class="custom-select-sm text-center w-100 my-1">
+                            <option selected>All Categories</option>
+                            <option id="search_op" hidden=true value="volvo">Volvo</option>
+
+                        </select>
+                    </div>
+                    <div class="col-sm-6 float-right ">
+                        <div class="input-group mb-3 input-group-sm w-100">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input id="app_seach_box" type="text" class="form-control inline-block"
+                                   placeholder="Search terms">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- application-->
+            <div id="applications_container" class="py-2" data-app="blank" hidden>
+                <div class="row border bg-white">
+                    <!-- image -->
+                    <div class="col-xs-3">
+                        <img style="width:64px;height:64px;" class="image-thumbnail" data-app="image" src="">
+                    </div>
+                    <div data-app="name" class="col py-3 text-break">
+                        <div class="small">Application name</div>
+                    </div>
+                    <div class="col-xs-3 d-flex justify-content-end>
+                        <div class=" btn-group
+                    " role="group" aria-label="Basic example">
+                    <button data-app="open" type="button" class="btn btn-sm btn-success my-3">Open</button>
+                    <button data-app="close" type="button" class="btn btn-sm btn-danger my-3 disabled">
+                        Close
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- MEDIA ALL -->
+    <!-- MEDIA ALL -->
+    <!-- MEDIA ALL -->
+
+    <div class="container">
+
+        <div class="row mr-1 ml-1 text-center" data-toggle="collapse" href="#media_all">
+            <div class="col">
+                <label class="h5 py-2 text-center w-100 inline-block align-middle">Media <i
+                        class="fas fa-sort-down"></i></label>
+            </div>
+        </div>
+
+        <div class="collapse" data-toggle="collapse" id="media_all">
+
+            <div class="row my-2" id="media_loading">
+                <div class="col-xs-12 w-100 text-center align-middle">
+                    <div class="spinner-border spinner-border-sm pt-0 pb-0" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    Loading
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="container text-center">
+                    <button id="media_kill" class="btn btn btn-primary pt-0 pb-0">Kill Player</button>
+                </div>
+            </div>
+
+            <div class="row" id="media_search_section">
+
+                <form class="form-inline w-100">
+                    <div class="col-sm-6 float-right ">
+                        <div class="input-group mb-3 input-group-sm w-100">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                            </div>
+                            <input id="media_search_box" type="text" class="form-control inline-block"
+                                   placeholder="Search terms">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <!-- media-->
+            <div id="media_container" class="container w-100" data-media="blank" hidden>
+                <div class="row border bg-white">
+                    <row>
+                        <div data-app="name" class="col py-1 text-break">
+                            <div class="small" data-media-name>Application name</div>
+                        </div>
+                    </row>
+                    <row>
+                        <div class="col small">
+                            Resolution:<span id="media_res" data-media-res>3000x4000</span>
+                        </div>
+                        <div class="col small">
+                            Duration:<span id="media_duration" data-media-dur>01:03:23<span>
+                        </div>
+                        <div class="col small">
+                            Duration:<span id="media_size" data-media-size>01:03:23<span>MB
+                        </div>
+                        <div>
+                            <button data-app="open" type="button" class="btn btn-sm btn-success my-3">Play</button>
+                        </div>
+                    </row>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- OPTIONS ALL -->
-    <div class="h5 mb-2 text-center" data-toggle="collapse" href="#options_all">
+    <div class="h5 py-2 text-center w-100 inline-block align-middle" data-toggle="collapse" href="#options_all">
         Extras <i class="fas fa-sort-down"></i>
     </div>
 
@@ -133,13 +309,12 @@
                     <label class="form-check-label" for="accept_touch">
                         Accept Mouse Movement
                     </label>
-                </div>
-                <!-- log movement -->
-                <div class="form-check m-1">
-                    <input class="form-check-input" type="checkbox" checked id="log_touch">
-                    <label class="form-check-label" for="log_touch">
-                        Log Mouse Movement
-                    </label>
+                    <div>
+                        <small id="accpetMouseHelp" class="form-text text-muted">Send on screen swipes to
+                            screen?</small>
+
+                    </div>
+
                 </div>
                 <!--- ms to move -->
                 <div class="input-group mb-2">
@@ -148,6 +323,13 @@
                     </div>
                     <input type="text" class="form-control" id="touch_send_ms" aria-describedby="basic-addon3"
                            value="200">
+                    <div>
+
+                        <small id="sendMsHelp" class="form-text text-muted">How often to send mouse movements to the
+                            screen. NB. The system will attempt updates if it hasn't received a response from the server
+                            from the last send (error or success).</small>
+                    </div>
+
                 </div>
                 <!--- movement multiplier -->
                 <div class="input-group mb-2">
@@ -156,10 +338,30 @@
                     </div>
                     <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3"
                            value="5">
+                    <div>
+
+                        <small id="multiplierHelp" class="form-text text-muted">Used to increase the movement speed of
+                            mouse on screen. Larger value makes a small finger swipe on mobile move a larger distance on
+                            the remote computer</small>
+                    </div>
+
                 </div>
-                <button type="button" class="btn btn-primary mb-2" onclick="settings.set_defaults()">Reset All
-                    Options
-                </button>
+                <!-- dynamic multiplier -->
+                <div class="form-check m-1">
+                    <input class="form-check-input" type="checkbox" checked id="dynamic_multiplier">
+                    <label class="form-check-label" for="dynamic_multiplier">
+                        Dynamic speed multiplier
+                    </label>
+                    <div>
+
+                        <small id="dynamicHelp" class="form-text text-muted">Uses the distance finger swiped to
+                            determine the % of the above multiplier to use. i.e Bigger finger strokes are less accurate
+                            but travel further. Smaller movements are more intricate.</small>
+                    </div>
+
+                </div>
+
+
             </div>
         </div>
         <!-- Remote Stats -->
@@ -248,295 +450,7 @@
 <script src="{{ url_for('static', filename='functions.js') }}"></script>
 <script src="{{ url_for('static', filename='snackbar.min.js') }}"></script>
 
-<script>
 
-
-    var show_screenshot = (ele) => {
-        post_ajax_new('/api/getscreen',
-            'get',
-            null,
-            null,
-            (data) => {
-                data = JSON.parse(data)
-                $('#screenshot').attr("src", data['image']);
-                $('#imageModal').modal('show')
-            },
-            null, null)
-    }
-
-    function getCookie(n) {
-        let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
-        return a ? a[1] : '';
-    }
-
-    function update_mouse(event, id_val) {
-
-        if (event.touches) {
-            var sX = event.touches[0].screenX;
-            var sY = event.touches[0].screenY;
-        } else {
-            var sX = event.screenX;
-            var sY = event.screenY;
-        }
-
-        // var coords1 = "client - X: " + cX + ", Y coords: " + cY;
-        //var coords2 = "screen - X: " + sX + ", Y coords: " + sY;
-
-
-        // Log and move mouse if needed
-        mouse.log_pos(sX, sY)
-        mouse.send_mouse_move()
-
-
-        // if log mouse
-        if (settings.log_touch == true) {
-
-            var x = document.querySelector("#" + id_val + " #Screen #x")
-            var x_diff = document.querySelector("#" + id_val + " #Screen #x_diff")
-            var y = document.querySelector("#" + id_val + " #Screen #y")
-            var y_diff = document.querySelector("#" + id_val + " #Screen #y_diff")
-
-            x_diff.innerText = Math.round(mouse.x_diff, 2)
-            x.innerText = Math.round(mouse.x, 2)
-            y_diff.innerText = Math.round(mouse.y_diff, 2)
-            y.innerText = Math.round(mouse.y, 2)
-        }
-
-    }
-
-    window.onload = function (e) {
-        post_ajax_new("/api/getremotescreen", "get", null, null, (data) => {
-            data1 = JSON.parse(data)
-            document.getElementById("remote_x").innerText = data1.x
-            document.getElementById("remote_y").innerText = data1.y
-        }, null, null)
-    }
-
-    function Log() {
-        this.keymouse_speed = []
-        this.mouse_trans = 0
-        this.mouse_errors = 0
-        this.key_trans = 0
-        this.key_errors = 0
-
-        this.log_trans = (typ, complete_type) => {
-            if (typ == "mouse" & complete_type == true) {
-                this.mouse_trans = this.mouse_trans + 1
-                document.getElementById("mouse_complete").innerText = this.mouse_trans
-            } else if (typ == "mouse" & complete_type == false) {
-                this.mouse_errors = this.mouse_errors + 1
-                document.getElementById("mouse_error").innerText = this.mouse_errors
-            } else if (typ == "keyboard" & complete_type == true) {
-                this.key_trans = this.key_trans + 1
-                document.getElementById("keyboard_complete").innerText = this.key_trans
-            } else if (typ == "keyboard" & complete_type == false) {
-                this.key_errors = this.key_errors + 1
-                document.getElementById("keyboard_error").innerText = this.key_errors
-            }
-
-        }
-        this.log_start = () => {
-            this.time_start = new Date()
-        }
-        this.log_end = () => {
-            let dte = new Date()
-            let time_taken = dte - this.time_start
-            if (this.keymouse_speed.length > 20) {
-                this.keymouse_speed.shift()
-            }
-            this.keymouse_speed.push(time_taken)
-            this.get_keymouse_speed()
-        }
-        this.get_keymouse_speed = () => {
-            let sum = this.keymouse_speed.reduce((previous, current) => current += previous)
-
-            document.getElementById("transfer_speed").innerText = Math.round(sum / this.keymouse_speed.length, 2)
-        }
-
-    }
-
-    function Settings() {
-
-        this.set_settings = () => {
-            this.accept_touch_ele.checked = this.accept_touch
-            this.log_touch_ele.checked = this.log_touch
-            this.touch_send_ms_ele.value = this.touch_send_ms
-            this.movement_multiplier_ele.value = this.movement_multiplier
-        }
-
-        this.set_defaults = () => {
-            this.movement_multiplier = 15
-            this.touch_send_ms = 60
-            this.accept_touch = true
-            this.log_touch = true
-            this.set_settings()
-        }
-
-        this.change_setting = (obj) => {
-            if (obj.getAttribute("type") == "text") {
-                document.cookie = String(obj.id) + "=" + obj.value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT"
-            } else {
-                document.cookie = String(obj.id) + "=" + obj.checked + "; expires=Fri, 31 Dec 9999 23:59:59 GMT"
-            }
-
-        }
-
-        this.log_touch_ele = document.getElementById("log_touch")
-        this.log_touch_ele.onchange = () => {
-            this.change_setting(this.log_touch_ele)
-            this.log_touch = this.log_touch_ele.checked
-        }
-        if (getCookie("log_touch")) {
-            this.log_touch = getCookie("log_touch")
-            this.log_touch_ele.checked = this.log_touch == "true"
-        } else {
-            this.log_touch = true
-        }
-
-
-        this.accept_touch_ele = document.getElementById("accept_touch")
-        this.accept_touch_ele.onchange = () => {
-            this.change_setting(this.accept_touch_ele)
-            this.accept_touch = this.accept_touch_ele.checked
-        }
-        if (getCookie("accept_touch")) {
-            this.accept_touch = getCookie("accept_touch")
-            this.accept_touch_ele.checked = this.accept_touch == "true"
-        } else {
-            this.accept_touch = true
-        }
-
-
-        this.touch_send_ms_ele = document.getElementById("touch_send_ms")
-        this.touch_send_ms_ele.onchange = () => {
-            this.change_setting(this.touch_send_ms_ele)
-            this.touch_send_ms = this.touch_send_ms_ele.value
-        }
-        if (getCookie("touch_send_ms")) {
-            this.touch_send_ms = getCookie("touch_send_ms")
-            this.touch_send_ms_ele.value = this.touch_send_ms
-        } else {
-            this.touch_send_ms = 60
-        }
-
-
-        this.movement_multiplier_ele = document.getElementById("movement_multiplier")
-        this.movement_multiplier_ele.onchange = () => {
-            this.change_setting(this.movement_multiplier_ele)
-            this.movement_multiplier = this.movement_multiplier_ele.value
-        }
-        if (getCookie("movement_multiplier")) {
-            this.movement_multiplier = getCookie("movement_multiplier")
-            this.movement_multiplier_ele.value = this.movement_multiplier
-        } else {
-            this.movement_multiplier = 15
-        }
-
-    }
-
-
-    function Keyboard() {
-        this.key_input = document.getElementById("keyboard_input")
-        this.key_button = document.getElementById("keyboard_send")
-
-        this.send_text = () => {
-
-            data = JSON.stringify({"text": String(this.key_input.value)})
-            log.log_start()
-            post_ajax_new("/api/sendtype", "post", data, null, this.clear_box, () => log.log_trans("keyboard", false), null)
-
-        }
-        this.send_key = (key) => {
-            data = JSON.stringify({"text": String(key)})
-            post_ajax_new("/api/sendkey", "post", data, null, this.clear_box, () => log.log_trans("keyboard", false), null)
-        }
-
-        this.clear_box = () => {
-            this.key_input.value = ""
-            log.log_end()
-            log.log_trans("keyboard", true)
-        }
-
-        // set onclick for all kdb items
-        var pc_keys = document.getElementsByTagName("kbd")
-        for (const itm in pc_keys) {
-            pc_keys[itm].onclick = () => {
-                this.send_key(pc_keys[itm].id)
-            }
-        }
-        this.key_button.onclick = this.send_text
-        this.key_input.onkeypress = this.send_text
-    }
-
-    function Mouse() {
-
-        this.time_last_send = new Date()
-        this.x = 0
-        this.y = 0
-        this.x_diff = 0
-        this.y_diff = 0
-        this.screen_x = screen.width
-        this.screen_y = screen.height
-
-        this.log_pos = (cur_x, cur_y) => {
-            this.x_diff = cur_x - this.x
-            this.x = cur_x
-            this.y_diff = cur_y - this.y
-            this.y = cur_y
-        }
-
-
-        this.send_mouse_move = () => {
-            if (this.x != this.x_diff && this.y != this.y_diff && this.ok_to_send == true) {
-                current_date = new Date()
-                if (document.getElementById("accept_touch").checked == true & (current_date - this.time_last_send) > settings.touch_send_ms) {
-                    log.log_start()
-                    this.time_last_send = current_date
-                    data = JSON.stringify({
-                        "x": (this.x_diff * -1) * settings.movement_multiplier,
-                        "y": (this.y_diff * -1) * settings.movement_multiplier
-                    })
-                    this.ok_to_send = false
-                    post_ajax_new("/api/sendscreen", "post", data, null, () => {
-                        this.ok_to_send = true
-                        log.log_end()
-                        log.log_trans("mouse", true)
-                    }, () => {
-                        this.ok_to_send = true
-                        log.log_end()
-                        log.log_trans("mouse", false)
-                    }, null)
-                }
-            }
-        }
-        this.ok_to_send = true
-
-        this.click_mouse = (type) => {
-            data = JSON.stringify({"click": type})
-            post_ajax_new("/api/sendclick", "post", data, null, null, null, null)
-        }
-
-        this.reset_mouse = () => {
-            this.x = 0
-            this.y = 0
-            this.x_diff = 0
-            this.y_diff = 0
-        }
-        document.getElementsByTagName("body")[0].ontouchmove = (e) => {
-            update_mouse(e, 'touch_start')
-        }
-        document.getElementsByTagName("body")[0].ontouchend = (e) => {
-            this.reset_mouse()
-        }
-    }
-
-    keyboard = new Keyboard()
-    mouse = new Mouse()
-    settings = new Settings()
-    settings.set_settings()
-    log = new Log()
-
-</script>
 </body>
 
 </html>

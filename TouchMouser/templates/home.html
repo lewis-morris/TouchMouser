@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%" class="bg-dark unselectable">
+<head>
+    <script src="http://unpkg.com/prevent-pull-refresh"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/journal/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-vjBZc/DqIqR687k5rf6bUQ6IVSOxQUi9TcwtvULstA7+YGi//g3oT2qkh8W1Drx9" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/c551403873.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/snackbarjs/1.1.0/snackbar.css.map"
+          integrity="undefined" crossorigin="anonymous">
+
+</head>
+<body class="unselectable" style="overscroll-behavior-y: none;">
+
+<div id="touch_surface" class="container-fluid bg-dark unselectable">
+
+    <!--Keyboard -->
+
+    <!--Keyboard -->
+    <div id="keyboard_block py-2" class="container py-1 rounded-3">
+        <!-- TITLE -->
+        <a class="row border bg-light" data-toggle="collapse" data-target="#keyboard-content">
+            <div class="col text-center align-middle">
+                <span class="h3">Keyboard <i class="fas fa-sort-down"></i></span>
+            </div>
+        </a>
+
+        <!-- CONTENT -->
+        <div class="row collapse bg-white my-2 text-center" id="keyboard-content">
+
+            <!-- SEARCH SECTION -->
+            <div class="col-12">
+                <!-- keyboard textbox -->
+                <div class="row">
+                    <div class="col-12 py-2 text-center">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-paper-plane"></i>
+                                    <!--<i class="fas fa-search"></i>--></span>
+                            </div>
+                            <input id="media_text_box" type="text" class="form-control inline-block"
+                                   placeholder="Text to send">
+                            <button id="keyboard_send" type="button" class="btn btn-primary form-control col-3">Send to
+                                screen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Keyboard Keys -->
+            <div class="col-12">
+                <!-- TITLE -->
+                <div class="row " data-toggle="collapse" data-target="#keyboard-keys-content">
+                    <div class="col border bx-2 px-2 pt-1">
+                        <div class="h5 text-muted">
+                            Keyboard Keys
+                        </div>
+                    </div>
+                </div>
+                <!-- Keyboard Keys Content -->
+                <div class="container bg-info py-1">
+                    <div class="row collapse" id="keyboard-keys-content">
+                        <div class="col-12 py-3">
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable"
+                                    id='enter'>enter
+                            </button>
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable"
+                                    id="backspace">backspace
+                            </button>
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable"
+                                    id="space">space
+                            </button>
+                        </div>
+                        <div class="col-12 text-center mt-1 ">
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable" id='up'>
+                                up
+                            </button>
+                        </div>
+                        <div class="col-12 text-center pb-1">
+
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable" id='left'>
+                                left
+                            </button>
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable" id="down">
+                                down
+                            </button>
+                            <button data-kdb type="button" class="kdb-button btn btn-primary h4 unselectable"
+                                    id="right">right
+                            </button>
+                        </div>
+                        <div class="col-12 text-center h3 pt-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button id="send_key_code_button" class="btn btn-primary" type="button">Send
+                                    </button>
+                                </div>
+                                <input id="send_key_code_input" type="text" class="form-control"
+                                       placeholder="Enter key code to send i.e f1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application keys -->
+            <div class="col-12 pb-2">
+                <!-- TITLE -->
+                <div class="row " data-toggle="collapse" data-target="#application-keys-content">
+                    <div class="col border bx-2 px-2 pt-1">
+                        <div class="h5 text-muted">
+                            Multimedia Keys
+                        </div>
+                    </div>
+                </div>
+                <!-- Keyboard Keys Content -->
+                <div class="container bg-info py-1">
+                    <div class="row collapse" id="application-keys-content">
+
+                        <!-- Volume -->
+                        <div class="col-12 text-center py-1">
+                            <span class="h4 text-center align-center">
+                                Volume
+                            </span>
+                        </div>
+
+                        <div class="col-12 py-1">
+                            <div class="text-center">
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h5" id="volumedown">
+                                    Volume Down
+                                </button>
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h5" id="volumeup">
+                                    Volume Up
+                                </button>
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h5" id="mute">Mute
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Multimedia -->
+                        <div class="col-12 text-center py-1">
+                            <span class="h4 text-center align-center">
+                                Multimedia
+                            </span>
+                        </div>
+
+                        <div class="col-12 py-1">
+                            <div class="text-center">
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h6 ml-1" id="play">
+                                    Play
+                                </button>
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h6 ml-1" id="stop">
+                                    Pause
+                                </button>
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h6 ml-1" id="previous">
+                                    Previous Track
+                                </button>
+                                <button data-kdb type="button" class="kdb-button btn btn-primary h6 ml-1" id="next">Next
+                                    Track
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--Mouse -->
+    <div id="mouse_block py-2" class="container py-1">
+        <!-- TITLE -->
+        <div class="row border bg-light" data-toggle="collapse" data-target="#mouse-content">
+            <div class="col text-center">
+                <span class="h3">Mouse <i class="fas fa-sort-down"></i></span>
+            </div>
+        </div>
+        <!-- CONTENT -->
+
+        <div class="row text-center my-2 py-2 bg-light collapse" id="mouse-content">
+            <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button id="mouse_click_left" type="button" class="btn btn-primary">Left Click</button>
+                <button id="mouse_click_right" type="button" class="btn btn-secondary">Right Click
+                </button>
+                <button id="mouse_click_double" type="button" class="btn btn-primary">Double Click
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--Media -->
+    <div id="media_block py-2" class="container py-1">
+        <!-- TITLE -->
+        <div class="row border bg-light" data-toggle="collapse" data-target="#media-content">
+            <div class="col text-center">
+                <span class="h3">Media <i class="fas fa-sort-down"></i></span>
+            </div>
+        </div>
+        <!-- CONTENT -->
+        <div class="row my-2 py-2 bg-light collapse" id="media-content">
+            <div class="container">
+                <div class="row my-2" id="media_loading">
+                    <div class="col-12 text-center align-middle text-danger h5">
+
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="container text-center">
+                        <button id="media_refresh_button" class="btn btn btn-primary pt-0 pb-0">Refresh List</button>
+                        <button id="media_kill" class="btn btn btn-primary pt-0 pb-0">Kill Player</button>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="form-row border py-2" id="media_search_section">
+
+                        <div class="col-12 text-center">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input id="media_search_box" type="text" class="form-control form-control-small"
+                                       placeholder="Search terms">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <div id="media-base" class="row bg-light border my-2 " hidden>
+
+                        <div class="col-9 text-break lead h5" id="media_name" data-media-name>
+                            TESTsadasdasdakjdhskjsahdkjhaskjdhkjashdk jahsdkj
+                        </div>
+
+                        <div class="col-3 float-right pr-0 " id="media_play">
+                            <button data-media-play type="button" data-media-button
+                                    class="btn btn-sm btn-success float-right">
+                                <svg class="bi bi-play pb-1" width="1em" height="1em" viewBox="0 0 16 16"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M10.804 8L5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                                </svg>
+                                Play
+                            </button>
+                        </div>
+
+                        <div class="col-4 text-break " id="media_resolution">
+                            <span class="strong">Resolution:</span><br><span class="small" data-media-resolution>3000x5000</span>
+                        </div>
+                        <div class="col-4 text-break" id="media_duration">
+                            <span class="strong">Duration:</span> <br><span class="small" data-media-duration>01:05:62 </span>
+                        </div>
+                        <div class="col-4 text-break" id="media_size">
+                            <span class="strong">Size:</span> <br><span class="small" data-media-size>512.25MB</span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Applications -->
+    <div id="application_block py-2" class="container py-1">
+        <!-- TITLE -->
+        <div class="row border bg-light" data-toggle="collapse" data-target="#application-content">
+            <div class="col text-center">
+                <span class="h3">Applications <i class="fas fa-sort-down"></i></span>
+            </div>
+        </div>
+        <!-- CONTENT -->
+        <div class="row my-2 py-2 bg-light collapse" id="application-content">
+            <div class="container">
+                <div class="row my-2" id="app_loading">
+                    <div class="col-12 text-center align-middle text-danger h5">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="container text-center">
+                        <button id="app_refresh_button" class="btn btn btn-primary pt-0 pb-0">Refresh List</button>
+                        <button id="app_refresh_running_button" class="btn btn btn-primary pt-0 pb-0">Update Running
+                        </button>
+
+                        <button id="app_show_running" class="btn btn btn-primary pt-0 pb-0">Show Running</button>
+                    </div>
+                </div>
+
+                <form>
+                    <div class="form-row border py-2" id="application_search_section">
+
+                        <div class="col-12 text-center">
+                            <!-- Small -->
+                            <select id="app_dropdown" name="category"
+                                    class="form-control form-control-small text-center">
+                                <option selected>All Categories</option>
+                                <option id="search_op" hidden=true value="volvo">Volvo</option>
+                            </select>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                </div>
+                                <input id="app_seach_box" type="text" class="form-control form-control-small"
+                                       placeholder="Search terms">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="container">
+                    <div id="application-base" hidden>
+
+
+                        <div class="row bg-light border mt-2">
+
+                            <img class="col-2 p-0 m-0 b-0" id="app_image" src="" data-app-image>
+
+                            <div class="col text-break" id="app_name" data-app-name>
+                                TESTsadasdasdakjdhskjsahdkjhaskjdhkjashdk jahsdkj
+                            </div>
+                            <div class="col-4 p-0" id="app_name_button" data-app-buttons>
+                                <div class="btn-group float-right">
+                                    <div class="row m-0">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-6 px-0">
+                                                    <button hidden=true data-app-show type="button"
+                                                            class="btn btn-block btn-sm btn-info float-right">
+                                                        Show
+                                                    </button>
+                                                </div>
+                                                <div class="col-6 px-0">
+                                                    <button hidden=true data-app-hide type="button"
+                                                            class="btn btn-block btn-sm btn-primary float-right">
+                                                        Hide
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+
+                                            <div class="row">
+                                                <div class="col-6 px-0">
+                                                    <button data-app-open type="button"
+                                                            class="btn btn-block btn-sm btn-success float-right">
+                                                        Open
+                                                    </button>
+                                                </div>
+                                                <div class="col-6 px-0">
+                                                    <button data-app-close type="button"
+                                                            class="btn btn-block btn-sm float-right btn-danger disabled">
+                                                        Closed
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-app-window class="col-12 text-center text-primary border" data-window-toggle
+                               data-toggle="collapse" data-target="">
+                                <svg class="bi bi-arrow-bar-down" width="1.65em" height="1.65em" viewBox="0 0 16 16"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M11.354 10.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L8 12.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 6a.5.5 0 0 1 .5.5V13a.5.5 0 0 1-1 0V6.5A.5.5 0 0 1 8 6zM2 3.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="row border-left border-right border-bottom collapse hidden" data-app-window-col
+                             id="window_collapse">
+                            <div class="col-12 bg-info text-light" data-app-window-houser>
+                                <div class="row my-1 bg-white text-dark" data-app-window-item>
+                                    <div class="col-6 pr-0 pl-1 small pt-1 text-wrap" data-app-window-name>
+                                        Window Name
+                                    </div>
+                                    <div class="col-2 pl-1 small pt-1" data-app-window-pid>
+                                        Kill
+                                    </div>
+                                    <div class="col" hidden data-app-window-hex>
+                                        Kill
+                                    </div>
+                                    <div class="col-4 px-0" data-app-window-buttons>
+                                        <div class="btn-group btn-block text-center float-right" role="group"
+                                             aria-label="Basic example">
+                                            <button data-window-kill type="button" class="px-1 btn btn-sm btn-primary">
+                                                Kill
+                                            </button>
+                                            <button data-window-show type="button"
+                                                    class="px-1 btn btn-sm btn-secondary">
+                                                Show
+                                            </button>
+                                            <button data-window-hide type="button"
+                                                    class="px-1 btn btn-sm btn-secondary">
+                                                Hide
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--- extra new -->
+
+    <div id="extra_block py-2" class="container py-1 rounded-3">
+        <!-- TITLE -->
+        <a class="row border bg-light" data-toggle="collapse" data-target="#extra-content">
+            <div class="col text-center align-middle">
+                <span class="h3">Extra <i class="fas fa-sort-down"></i></span>
+            </div>
+        </a>
+
+        <!-- CONTENT -->
+        <div class="row collapse bg-white my-2 text-center" id="extra-content">
+
+            <!-- Option  Keys -->
+            <div class="col-12">
+                <!-- TITLE -->
+
+                <div class="row " data-toggle="collapse" data-target="#options-content">
+                    <div class="col border bx-2 px-2 pt-1">
+                        <div class="h5 text-muted">
+                            Options
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyboard Keys Content -->
+                <div class="container bg-info py-1">
+                    <div class="row collapse" id="options-content">
+                        <!-- accept mouse -->
+                        <div class="col-12 form-check pb-1">
+                            <input class="form-check-input" type="checkbox" checked id="accept_touch">
+                            <label class="form-check-label text-white font-weight-bold" for="accept_touch">
+                                Accept Mouse Movement
+                            </label>
+                            <div>
+                                <small id="accpetMouseHelp" class="form-text text-white">Send on screen swipes to
+                                    screen?</small>
+
+                            </div>
+                        </div>
+
+
+                        <!--- ms to move -->
+                        <div class="col-12 input-group pb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text " id="basic-addon3">Time Between Sends (ms) </span>
+                            </div>
+                            <input type="text" class="form-control" id="touch_send_ms" aria-describedby="basic-addon3"
+                                   value="200">
+                            <div>
+
+                                <small id="sendMsHelp" class="form-text text-white">How often to send mouse movements to
+                                    the screen. NB. The system will only attempt a new mouse position updates, *if*
+                                    it has received a response from the server since the from the last send (error or
+                                    success).</small>
+                            </div>
+
+                        </div>
+                        <!--- movement multiplier -->
+                        <div class="col-12 input-group pb-1">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon4">Mouse speed multiplier </span>
+                            </div>
+                            <input type="text" class="form-control" id="movement_multiplier" aria-describedby="basic-addon3" value="5">
+                            <div>
+
+                                <small id="multiplierHelp" class="form-text text-white">Used to increase the movement
+                                    speed of
+                                    mouse on screen. Larger value makes a small finger swipe on mobile move a larger
+                                    distance on
+                                    the remote computer</small>
+                            </div>
+
+                        </div>
+
+                        <!-- dynamic multiplier -->
+                        <div class="col-12 form-check pb-1">
+                            <input class="form-check-input" type="checkbox" checked id="dynamic_multiplier">
+                            <label class="form-check-label text-white font-weight-bold" for="dynamic_multiplier">
+                                Dynamic speed multiplier
+                            </label>
+                            <div>
+
+                                <small id="dynamicHelp" class="form-text text-white">Uses the distance finger swiped to
+                                    determine the % of the above multiplier to use. i.e Bigger finger strokes are less
+                                    accurate
+                                    but travel further. Smaller movements are more intricate.</small>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12">
+                            <button id="reset_options" type="button" class="btn btn-primary mb-2"
+                                    onclick="settings.set_defaults()">Reset
+                                All
+                                Options
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Remote Computer -->
+            <div class="col-12">
+                <!-- TITLE -->
+                <div class="row " data-toggle="collapse" data-target="#remote-content">
+                    <div class="col border bx-2 px-2 pt-1">
+                        <div class="h5 text-muted">
+                            Remote
+                        </div>
+                    </div>
+                </div>
+                <!-- Keyboard Keys Content -->
+                <div class="container bg-info py-1">
+                    <div class="row collapse" id="remote-content">
+                        <div class="col">
+                            <div id="stats" class="text-center ">
+                                <div class="text-white font-weight-bold h7">Remote Screen</div>
+                                <div class="text-center">
+                                    <span id="remote_x" class="text-white">0</span> x <span id="remote_y"
+                                                                                            class="text-white">0</span>
+                                </div>
+                                <button class="btn btn-primary btn-block mb-2" onclick="show_screenshot(this)">Show
+                                    screen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Stats -->
+            <div class="col-12">
+                <!-- TITLE -->
+                <div class="row " data-toggle="collapse" data-target="#stats-content">
+                    <div class="col border bx-2 px-2 pt-1">
+                        <div class="h5 text-muted">
+                            Stats
+                        </div>
+                    </div>
+                </div>
+                <!-- Keyboard Keys Content -->
+                <div class="container bg-info py-1">
+                    <div class="row collapse" id="stats-content">
+                        <div class="col">
+                            <div id="touch_start" class="text-center ">
+                                <div id="Screen" class="text-center">
+                                    <span class="text-primary font-weight-bold h7"> Screen: </span>
+                                    <div class="text-white">
+                                        <span class="text-white font-weight-bold h7"> Current: </span>
+                                        x <span id="x">0 </span>
+                                        <span>  </span>
+                                        y <span id="y">0</span>
+
+                                        <span class="text-white font-weight-bold h7">   Difference: </span>
+                                        x <span id="x_diff">0 </span>
+                                        <span>  </span>
+                                        y <span id="y_diff">0</span>
+                                        <br>
+                                    </div>
+                                </div>
+                                <div id="mouse_speed" class="text-center">
+                                    <span class="text-primary font-weight-bold h7 "> Speed: </span>
+                                    <div class="text-white">
+                                        <span class="font-weight-bold"> Mouse response speed: </span>
+                                        <span id="transfer_speed">0</span> (ms)
+                                    </div>
+                                </div>
+                                <div id="transactions" class="text-center">
+
+                                    <span class="text-primary font-weight-bold h7"> Transactions: </span>
+
+                                    <div class="text-white">
+                                        Mouse Complete: <span id="mouse_complete">0</span> Mouse error: <span
+                                            id="mouse_error">0</span>
+                                        <br>
+                                        Keyboard Complete: <span id="keyboard_complete">0</span> Keyboard error: <span
+                                            id="keyboard_error">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Screenshot</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img class="image-fluid w-100" src="" id="screenshot">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- login modal -->
+    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="defaultForm-pass" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span hidden data-token="" id="token"></span>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='functions.js') }}"></script>
+<script src="{{ url_for('static', filename='objects.js') }}?v=0.51"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snackbarjs/1.1.0/snackbar.min.js" integrity="sha256-yIGfMkQAq4NiRvtt6ilwQljILYzKZtHxIvhjXvxdWXg=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/snackbarjs/1.1.0/snackbar.min.js.map" integrity="undefined" crossorigin="anonymous"></script>
+<script>
+    var show_screenshot = (ele) => {
+        post_ajax_new('/api/getscreen',
+            'get',
+            null,
+            null,
+            (data) => {
+                data = JSON.parse(data)
+                $('#screenshot').attr("src", data['image']);
+                $('#imageModal').modal('show')
+            },
+            null, null)
+    }
+
+    function getCookie(n) {
+        let a = `; ${document.cookie}`.match(`;\\s*${n}=([^;]+)`);
+        return a ? a[1] : '';
+    }
+
+    window.onload = function (e) {
+        post_ajax_new("/api/getremotescreen", "get", null, null, (data) => {
+            data1 = JSON.parse(data)
+            document.getElementById("remote_x").innerText = data1.x
+            document.getElementById("remote_y").innerText = data1.y
+        }, null, null)
+    }
+
+    keyboard = new Keyboard()
+    mouse = new Mouse()
+    settings = new Settings()
+    log = new Log()
+    app = new ApplicationList()
+    media_list = new MediaList()
+
+    // set mouse detection to window
+
+
+    window.addEventListener('touchmove', function (e) {
+        mouse.update_mouse(e, 'touch_start')
+    });
+    window.addEventListener('touchend', function (e) {
+        mouse.reset_mouse()
+    });
+
+</script>
+</body>
+</html>

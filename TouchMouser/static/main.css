@@ -3,6 +3,14 @@
     opacity: 0.5;
 }
 
+.app-image{
+    width:48px;
+    height:48px;
+}
+#app-image{
+    width:48px;
+    height:48px;
+}
 
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
@@ -99,7 +107,5 @@
     user-select: none;
 }
 
-HTML, body {
-    overflow-x: hidden;
-    overscroll-behavior: contain;
- }
+
+
