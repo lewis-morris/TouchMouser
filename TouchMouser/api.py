@@ -65,12 +65,14 @@ class PlayMedia(Resource):
 class GetRemoteScreen(Resource):
 
     def get(self):
-
+        #get screensize and return
         screensize = pyautogui.size()
         return make_response(jsonify({"x": screensize[0], "y": screensize[1]}), 200)
 
 class GetScreen(Resource):
+
     def get(self):
+        #get screenshot
         screen = ImageGrab.grab()
         buffered = BytesIO()
         screen.save(buffered, format="JPEG")
@@ -81,7 +83,11 @@ class GetScreen(Resource):
 class SendScreen(Resource):
 
     def post(self):
+
+        #some times mose movments were being cancelled by pyautogui so this fixes things
+        #(although not recomended)
         pyautogui.FAILSAFE = False
+
         currentx = pyautogui.position().x
         currenty = pyautogui.position().y
         data = json.loads(request.get_json(force=True))
@@ -92,23 +98,33 @@ class SendScreen(Resource):
 
         try:
 
+            #this is used to limit erroneous large movements a set width.
+            # havent been able to diagnose the cause of the spikes of movment but have
+            # a feeling its something on the javascript end of things.
+
+            #fix spikes
             if abs(data["x"]) > width * .2:
                 if data["x"] < 0:
                     data["x"] = (width * .2)*-1
                 else:
                     data["x"] = (width * .2)
             x_move = currentx - data["x"]
+
+            #move to screen boundry if overspills
             if x_move > width:
                 x_move = width
             elif x_move < 0:
                 x_move = 0
 
+            # fix spikes
             if abs(data["y"]) > height * .2:
                 if data["y"] < 0:
                     data["y"] = (height * .2)*-1
                 else:
                     data["y"] = (height * .2)
             y_move = currenty - data["y"]
+
+            # move to screen boundry if overspills
             if y_move > height:
                 y_move = height
             elif y_move < 0:
@@ -127,7 +143,6 @@ class SendType(Resource):
         data = json.loads(request.get_json(force=True))
         try:
             pyautogui.write(data["text"])
-
 
         except:
             return make_response(jsonify({"error": "pyautogui error "}), 400)
@@ -152,8 +167,6 @@ class GetPIDs(Resource):
         data = json.loads(in_data)
 
         try:
-            if "".join(list(data.values())).find("olphin") > -1:
-                print("")
             if data["proc_two"] != "":
                 pid = os.popen(f"""bash {os.getcwd()}/TouchMouser/pids.sh "check" "{data["proc"]}" "{data["proc_one"]}" "{data["proc_three"]}" "{data["proc_two"]}" """).read().replace("\n","")
             else:
