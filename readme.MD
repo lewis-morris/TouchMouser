@@ -38,4 +38,7 @@ To type - open the keyboard options and send keys presses in blocks.
 You can also send multimedia keys such as skip track and sleep
 
 
+### Working Example
+
+[<img src="./examples/youtube.png">](https://www.youtube.com/watch?v=Iy_0_O2fb9k)
 
