@@ -5,6 +5,8 @@ Simple remote computer controller (for mobile) - powered by Python/Flask/RESTful
 
 > DISCLAMER - Please beware this has not been tested for security and if you run on an insecure network it is possible you will open your self up to attack. 
 
+> MADE FOR LINUX - Its working on my linux machine but its just a proof of concept and may not work out the box for you.
+
 ### Install  
 
 On the host PC 
